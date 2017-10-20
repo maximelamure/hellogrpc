@@ -27,10 +27,6 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 	return &pb.HelloReply{Message: "Hello" + in.Name}, nil
 }
 
-func (s *server) SayHelloAgain(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-	return &pb.HelloReply{Message: "Hello Again" + in.Name}, nil
-}
-
 // Get with Server-Side Streaming
 func (s *server) GetServerSideStreaming(u *pb.User, stream pb.Hello_GetServerSideStreamingServer) error {
 	ch := getProducts()

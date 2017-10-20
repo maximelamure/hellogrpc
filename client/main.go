@@ -13,8 +13,7 @@ import (
 )
 
 const (
-	address     = "localhost:50051"
-	defaultName = "max"
+	address = "localhost:50051"
 )
 
 func main() {
@@ -25,9 +24,20 @@ func main() {
 	defer conn.Close()
 	c := pb.NewHelloClient(conn)
 
+	SayHello(c)
 	ServerSideStreaming(c)
 	ClientSideStreaming(c)
 	ClientBiDirectionalStreaming(c)
+}
+
+func SayHello(c pb.HelloClient) {
+	reply, err := c.SayHello(context.Background(), &pb.HelloRequest{Name: "Maxime Lamure"})
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	log.Println(reply.Message)
 }
 
 func ServerSideStreaming(c pb.HelloClient) {
